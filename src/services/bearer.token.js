@@ -1,0 +1,4 @@
+
+export const BASE_URL = "https://website-api.ragory.tech/";
+export const TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW1sbzlnejcwMDA3cXgyYXJhY3hrendvIiwidHlwZSI6IkFETUlOIiwiZGV2aWNlSWQiOiJjbW1sb2NrdGwwMDA5cXgyYWU0MTV0ZTk5Iiwicm9sZSI6IlNVUEVSQURNSU4iLCJwZXJtaXNzaW9ucyI6W10sImlhdCI6MTc3MzIxMTUwOCwiZXhwIjoxNzc0MTExNTA4fQ.oFkXCCK0uTNJBgN-hDPuZVRls6rSd5zWu2WyCJYAjHU";

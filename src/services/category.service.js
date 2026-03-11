@@ -1,10 +1,8 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const BASE_URL = "https://ecommarce-production.up.railway.app";
-const TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWx5dHhhZDAwMDAwb2RoazR1d2N4ZG05IiwiZW1haWwiOiJzdXBlcmFkbWluQGNvbXBhbnkuY29tIiwidXNlclR5cGUiOiJBRE1JTiIsInJvbGUiOiJTVVBFUkFETUlOIiwicGVybWlzc2lvbnMiOlsiTUFOQUdFX1VTRVJTIiwiVklFV19VU0VSUyIsIk1BTkFHRV9QUk9EVUNUUyIsIlZJRVdfUFJPRFVDVFMiLCJNQU5BR0VfT1JERVJTIiwiVklFV19PUkRFUlMiLCJNQU5BR0VfUEFZTUVOVFMiLCJWSUVXX1BBWU1FTlRTIiwiVklFV19SRVBPUlRTIiwiRVhQT1JUX0RBVEEiLCJNQU5BR0VfU0VUVElOR1MiXSwiaWF0IjoxNzcxOTE1NTYwLCJleHAiOjE3NzI1MjAzNjB9.pKtztn1CqSXz3iJEOvp_hh8ha-Ph9MqWHpj0NIdSNjk";
-
+import {TOKEN} from "./bearer.token"
+import { BASE_URL } from "./bearer.token";
 /*--------------------------------------------------- */
 /*              Get Category API                      */
 /*--------------------------------------------------- */

@@ -3,7 +3,7 @@ import { useTagsStore } from "@/store/useTagsStore";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-
+import { slugify } from "@/app/lib/helper/helper";
 const TagsGeneralForm = () => {
   const { createProductTags } = useTagsStore();
   const {
@@ -18,25 +18,27 @@ const TagsGeneralForm = () => {
   });
 
   const onSubmit = async (data) => {
-    try {
-      // Assume createProductTags might be async
-      const result = await createProductTags(data);
 
-      // If the result indicates success (adjust based on your actual API response)
-      if (result?.success || result === true) {
-        toast.success("Tag created successfully!");
-        reset(); // Clear the form
-      } else {
-        // If result contains an error message
-        const errorMessage =
-          result?.message || "Failed to create tag. Please try again.";
-        toast.error(errorMessage);
-      }
-    } catch (error) {
-      // Handle unexpected errors (network issues, etc.)
-      console.error("Submission error:", error);
-      toast.error("An unexpected error occurred. Please try again.");
+
+    const payload = {
+      name: data.name,
+      slug: slugify(data.name),
+      translation: {
+        bn: data.nameTrans || "no translation added",
+      },
+    };
+
+    const result = await createProductTags(payload);
+    console.log(result.statusCode + 'hello')
+    if (result.statusCode === 201) {
+      toast.success(result.message)
+    } else {
+      toast.error(result.message)
     }
+
+    // If the result indicates success (adjust based on your actual API response)
+
+
   };
 
   return (
@@ -47,48 +49,55 @@ const TagsGeneralForm = () => {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="p-6">
-          {/* Name Field */}
-          <div className="flex flex-col md:flex-row md:items-start mb-6">
-            <label className="md:w-50 text-gray-700 text-sm font-normal mb-2 md:mb-0 pt-1">
-              Name <span className="text-red-500">*</span>
-            </label>
-            <div className="flex-1">
+        <div className="p-6 space-y-6">
+          {/* Two-column grid for fields */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Name Field */}
+            <div className="space-y-1">
+              <label className="block text-gray-700 text-sm font-medium">
+                Name <span className="text-red-500">*</span>
+              </label>
               <input
                 type="text"
-                {...register("name", {
-                  required: "Name is required", // Custom error message
-                })}
-                className={`w-full border rounded-sm px-3 py-2.5 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white transition-all shadow-inner ${
-                  errors.name ? "border-red-500" : "border-[#CED4DA]"
-                }`}
+                {...register("name", { required: "Name is required" })}
+                className={`w-full border rounded-sm px-3 py-2.5 focus:outline-none focus:border-[#088178] focus:ring-1 focus:ring-[#088178] bg-white transition-all shadow-inner ${errors.name ? "border-red-500" : "border-gray-300"
+                  }`}
                 placeholder="Enter name"
                 aria-invalid={errors.name ? "true" : "false"}
-                disabled={isSubmitting} // Disable during submission
+                disabled={isSubmitting}
               />
-              {/* Error message */}
               {errors.name && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.name.message}
-                </p>
+                <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
               )}
-              {/* Helper text */}
-              <p className="text-gray-500 text-xs mt-2">
-                Enter tags for this item
-              </p>
+              <p className="text-gray-500 text-xs">Enter tags for this item</p>
+            </div>
+
+            {/* Name Translation Field */}
+            <div className="space-y-1">
+              <label className="block text-gray-700 text-sm font-medium">
+                Name Translation
+              </label>
+              <input
+                type="text"
+                {...register("nameTrans")}
+                className="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-[#088178] focus:ring-1 focus:ring-[#088178] bg-white transition-all shadow-inner"
+                placeholder="Enter translation"
+                disabled={isSubmitting}
+              />
+              <p className="text-gray-500 text-xs">Enter Bangla tags name</p>
             </div>
           </div>
 
           {/* Save Button */}
-          <div className="flex justify-end pt-2">
+          <div className="flex justify-end pt-4">
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`px-6 py-2.5 rounded-lg text-sm font-semibold shadow-sm transition-all duration-200 ${
-                isSubmitting
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-[#088178] hover:bg-[#066a62] text-white hover:shadow"
-              }`}>
+              className={`px-6 py-2.5 rounded-lg text-sm font-semibold shadow-sm transition-all duration-200 ${isSubmitting
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-[#088178] hover:bg-[#066a62] text-white hover:shadow-md"
+                }`}
+            >
               {isSubmitting ? "Saving..." : "Save"}
             </button>
           </div>

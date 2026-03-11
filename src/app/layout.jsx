@@ -5,7 +5,7 @@ import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import AdminLayout from "@/Components/Layout/AdminLayout";
 import { ToastContainer } from "react-toastify";
-import Swal from "sweetalert2";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
