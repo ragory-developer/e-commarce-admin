@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Eleanor Pena",
+    "sellerId": "#439",
+    "email": "eleanor2026@example.com",
+    "status": "Active",
+    "registered": "08.07.2026",
+    "avatar": "https://i.ibb.co.com/6cWNNtXQ/c9cf4d38b3a065468a0ff6626273ddff.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Mary Monasa",
+    "sellerId": "#129",
+    "email": "monalisa@example.com",
+    "status": "Pending",
+    "registered": "11.07.2026",
+    "avatar": "https://i.ibb.co.com/6cWNNtXQ/c9cf4d38b3a065468a0ff6626273ddff.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Jonatan Ive",
+    "sellerId": "#400",
+    "email": "mrjohn@example.com",
+    "status": "Inactive",
+    "registered": "08.07.2026",
+    "avatar": "https://i.ibb.co.com/6cWNNtXQ/c9cf4d38b3a065468a0ff6626273ddff.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Eleanor Pena",
+    "sellerId": "#439",
+    "email": "eleanor2026@example.com",
+    "status": "Active",
+    "registered": "08.07.2026",
+    "avatar": "https://i.ibb.co.com/6cWNNtXQ/c9cf4d38b3a065468a0ff6626273ddff.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Albert Pushkin",
+    "sellerId": "#439",
+    "email": "someone@mymail.com",
+    "status": "Suspended",
+    "registered": "20.11.2019",
+    "avatar": "https://i.ibb.co.com/6cWNNtXQ/c9cf4d38b3a065468a0ff6626273ddff.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Alexandra Pena",
+    "sellerId": "#439",
+    "email": "eleanor2026@example.com",
+    "status": "Active",
+    "registered": "08.07.2026",
+    "avatar": "https://i.ibb.co.com/6cWNNtXQ/c9cf4d38b3a065468a0ff6626273ddff.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Eleanor Pena",
+    "sellerId": "#439",
+    "email": "eleanor2026@example.com",
+    "status": "Pending",
+    "registered": "08.07.2026",
+    "avatar": "https://i.ibb.co.com/6cWNNtXQ/c9cf4d38b3a065468a0ff6626273ddff.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Alex Pushkina",
+    "sellerId": "#439",
+    "email": "alex@gmail.org",
+    "status": "Active",
+    "registered": "08.07.2026",
+    "avatar": "https://i.ibb.co.com/6cWNNtXQ/c9cf4d38b3a065468a0ff6626273ddff.jpg"
+  }
+]

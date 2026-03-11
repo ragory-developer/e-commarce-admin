@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "productName": "T-shirt for men medium size",
+    "price": 34.5,
+    "image": "https://i.ibb.co.com/Q72zGC2s/a2891faf75b60f90897a49ef2ab38e88.jpg",
+    "status": "Active"
+  },
+  {
+    "id": 2,
+    "productName": "Helionic Hooded Down Jacket",
+    "price": 990.99,
+    "image": "https://i.ibb.co.com/Q72zGC2s/a2891faf75b60f90897a49ef2ab38e88.jpg",
+    "status": "Active"
+  },
+  {
+    "id": 3,
+    "productName": "Lace mini dress with faux leather",
+    "price": 76.99,
+    "image": "https://i.ibb.co.com/Q72zGC2s/a2891faf75b60f90897a49ef2ab38e88.jpg",
+    "status": "Active"
+  },
+  {
+    "id": 4,
+    "productName": "Fanmis Men's Travel Bag",
+    "price": 18.0,
+    "image": "https://i.ibb.co.com/Q72zGC2s/a2891faf75b60f90897a49ef2ab38e88.jpg",
+    "status": "Active"
+  },
+  {
+    "id": 5,
+    "productName": "Jeans Shorts for Men",
+    "price": 76.99,
+    "image": "https://i.ibb.co.com/Q72zGC2s/a2891faf75b60f90897a49ef2ab38e88.jpg",
+    "status": "Active"
+  },
+  {
+    "id": 6,
+    "productName": "Wallet made of leather brown color",
+    "price": 18.0,
+    "image": "https://i.ibb.co.com/Q72zGC2s/a2891faf75b60f90897a49ef2ab38e88.jpg",
+    "status": "Active"
+  },
+  {
+    "id": 7,
+    "productName": "Modern Armchair for home interiors",
+    "price": 76.99,
+    "image": "https://i.ibb.co.com/Q72zGC2s/a2891faf75b60f90897a49ef2ab38e88.jpg",
+    "status": "Active"
+  },
+  {
+    "id": 8,
+    "productName": "Lace mini dress with faux leather",
+    "price": 18.0,
+    "image": "https://i.ibb.co.com/Q72zGC2s/a2891faf75b60f90897a49ef2ab38e88.jpg",
+    "status": "Active"
+  },
+  {
+    "id": 9,
+    "productName": "Lace mini dress with faux leather",
+    "price": 76.99,
+    "image": "https://i.ibb.co.com/Q72zGC2s/a2891faf75b60f90897a49ef2ab38e88.jpg",
+    "status": "Active"
+  },
+  {
+    "id": 10,
+    "productName": "Lace mini dress with faux leather",
+    "price": 180.99,
+    "image": "https://i.ibb.co.com/Q72zGC2s/a2891faf75b60f90897a49ef2ab38e88.jpg",
+    "status": "Active"
+  }
+]

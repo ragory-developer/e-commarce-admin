@@ -1,0 +1,18 @@
+import TabbedLayout from "@/Components/Layout/TabbedLayout";
+import React from "react";
+
+import AttributeValuesForm from "@/Components/Forms/Attribute/AttributeValueForm";
+
+const CreateAttribute = () => {
+  const attributeTabs = [
+    { label: "Value", component: <AttributeValuesForm /> },
+  ];
+  return (
+    <div>
+      <h1 className="text-primary text-3xl font-bold mb-5">Create Attribute</h1>
+      <TabbedLayout tabs={attributeTabs}></TabbedLayout>
+    </div>
+  );
+};
+
+export default CreateAttribute;

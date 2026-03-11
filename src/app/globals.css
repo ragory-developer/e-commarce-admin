@@ -1,0 +1,148 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default;
+}
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #088178;
+  --color-secondary: #cee6e4;
+}
+@custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
+
+/* Force tooltips to be on the very top layer */
+.tooltip:before,
+.tooltip:after {
+  z-index: 999 !important;
+}
+
+/* Ensure the drawer side doesn't clip them */
+.drawer-side {
+  overflow: visible !important;
+}
+
+/* Container */
+.datatable-container {
+  max-width: 1280px;
+  margin: auto;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+}
+
+/* Header (top bar) */
+.datatable-container .dt-layout-row:first-child {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+/* Search */
+.datatable-container .dt-search input {
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 14px;
+}
+
+.datatable-container .dt-search label {
+  display: none;
+}
+
+/* Table header */
+.datatable-container table.dataTable thead th {
+  font-size: 13px;
+  color: #adb5bd;
+  font-weight: 500;
+  border-bottom: 1px solid #f1f3f5;
+  padding: 14px;
+  text-align: left;
+  background: #fff;
+}
+
+/* Table body */
+.datatable-container table.dataTable tbody td {
+  padding: 14px;
+  color: #6c757d;
+  border-bottom: 1px solid #f8f9fa;
+  vertical-align: middle;
+  font-size: 11px !important;
+}
+
+/* Logo box */
+.logo-box {
+  width: 44px;
+  height: 34px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-box img {
+  max-height: 20px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Status pill */
+.status-pill {
+  background: #e6fcf5;
+  color: #12b886;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+/* Footer */
+.datatable-container .dt-layout-row:last-child {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-top: 1px solid #f1f3f5;
+}
+
+/* Pagination */
+.datatable-container .dataTables_paginate {
+  display: flex;
+  align-items: center;
+}
+
+/* Buttons wrapper */
+.datatable-container .dataTables_paginate span {
+  display: flex;
+  gap: 6px;
+}
+
+.datatable-container .paginate_button .dt-paging .paging_numbers {
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 4px 12px;
+  background: #fff;
+  color: #495057;
+}
+
+.datatable-container .dt-paging-button.current {
+  background: #088178;
+  color: #fff;
+  border-color: #088178;
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+.datatable-container table.dataTable tbody tr.selected {
+  background-color: #e7f1ff !important;
+}
+
+/* Hover */
+.datatable-container table.dataTable tbody tr:hover {
+  background-color: #f8f9fa;
+  cursor: pointer;
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "id": 2,
+    "name": "Color 1",
+    "type": "Color",
+    "updated": "2 years ago"
+  },
+  {
+    "id": 3,
+    "name": "Color 2",
+    "type": "Image",
+    "updated": "2 years ago"
+  },
+  {
+    "id": 1,
+    "name": "Size",
+    "type": "Text",
+    "updated": "2 years ago"
+  }
+]

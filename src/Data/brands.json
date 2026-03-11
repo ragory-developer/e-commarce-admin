@@ -1,0 +1,72 @@
+[
+  {
+    "id": 20,
+    "logo": "bose.png",
+    "name": "Bose",
+    "status": "Active",
+    "created": "1 year ago"
+  },
+  {
+    "id": 9,
+    "logo": "nokia.png",
+    "name": "NOKIA",
+    "status": "Active",
+    "created": "5 years ago"
+  },
+  {
+    "id": 8,
+    "logo": "sony.png",
+    "name": "SONY",
+    "status": "Active",
+    "created": "5 years ago"
+  },
+  {
+    "id": 7,
+    "logo": "nike.png",
+    "name": "NIKE",
+    "status": "Active",
+    "created": "5 years ago"
+  },
+  {
+    "id": 6,
+    "logo": "adidas.png",
+    "name": "Adidas",
+    "status": "Active",
+    "created": "5 years ago"
+  },
+  {
+    "id": 5,
+    "logo": "beats.png",
+    "name": "Beats",
+    "status": "Active",
+    "created": "5 years ago"
+  },
+  {
+    "id": 4,
+    "logo": "lg.png",
+    "name": "LG",
+    "status": "Active",
+    "created": "5 years ago"
+  },
+  {
+    "id": 2,
+    "logo": "msi.png",
+    "name": "MSI",
+    "status": "Active",
+    "created": "5 years ago"
+  },
+  {
+    "id": 1,
+    "logo": "reebok.png",
+    "name": "Reebok",
+    "status": "Active",
+    "created": "5 years ago"
+  },
+  {
+    "id": 0,
+    "logo": "lenovo.png",
+    "name": "Lenovo",
+    "status": "Active",
+    "created": "5 years ago"
+  }
+]
