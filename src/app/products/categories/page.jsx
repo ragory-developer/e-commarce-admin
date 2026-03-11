@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 import {
   FiSearch,
@@ -93,9 +93,8 @@ const CategoryForm = ({ flatCategories, fetchCategoriesTree }) => {
           <input
             type="text"
             placeholder="e.g. Electronics"
-            className={`input input-bordered w-full bg-slate-50 focus:bg-white ${
-              errors.name ? "border-red-500" : ""
-            }`}
+            className={`input input-bordered w-full bg-slate-50 focus:bg-white ${errors.name ? "border-red-500" : ""
+              }`}
             {...register("name", { required: "Name is required" })}
           />
           {errors.name && (
@@ -111,9 +110,8 @@ const CategoryForm = ({ flatCategories, fetchCategoriesTree }) => {
           <input
             type="text"
             placeholder="e.g. electronics"
-            className={`input input-bordered w-full bg-slate-50 focus:bg-white ${
-              errors.slug ? "border-red-500" : ""
-            }`}
+            className={`input input-bordered w-full bg-slate-50 focus:bg-white ${errors.slug ? "border-red-500" : ""
+              }`}
             {...register("slug", { required: "Slug is required" })}
           />
           {errors.slug && (
@@ -127,9 +125,8 @@ const CategoryForm = ({ flatCategories, fetchCategoriesTree }) => {
             Parent <span className="text-red-500">*</span>
           </label>
           <select
-            className={`select select-bordered w-full bg-slate-50 font-normal ${
-              errors.parent ? "border-red-500" : ""
-            }`}
+            className={`select select-bordered w-full bg-slate-50 font-normal ${errors.parent ? "border-red-500" : ""
+              }`}
             {...register("parent", { required: "Parent is required" })}>
             <option value="">Select a parent</option>
             {flatCategories.map((cat) => (
@@ -150,9 +147,8 @@ const CategoryForm = ({ flatCategories, fetchCategoriesTree }) => {
             Description <span className="text-red-500">*</span>
           </label>
           <textarea
-            className={`textarea textarea-bordered h-32 bg-slate-50 w-full focus:bg-white ${
-              errors.description ? "border-red-500" : ""
-            }`}
+            className={`textarea textarea-bordered h-32 bg-slate-50 w-full focus:bg-white ${errors.description ? "border-red-500" : ""
+              }`}
             placeholder="Type here"
             {...register("description", {
               required: "Description is required",

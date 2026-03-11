@@ -29,7 +29,7 @@ const TagsGeneralForm = () => {
     };
 
     const result = await createProductTags(payload);
-    console.log(result.statusCode + 'hello')
+    console.log(result.statusCode)
     if (result.statusCode === 201) {
       toast.success(result.message)
     } else {
