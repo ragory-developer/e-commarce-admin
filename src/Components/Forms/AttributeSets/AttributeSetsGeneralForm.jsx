@@ -3,10 +3,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useAttibutesSetsStore } from "@/store/useAttributesSetsStore";
+import { slugify } from "@/app/lib/helper/helper";
+import { useAttributeSetsStore } from "@/store/useAttributeSetsStore";
+
 
 const AttributeSetsGeneralForm = () => {
-const { createAttributesSets } = useAttibutesSetsStore();
+  const { createAttributeSets } = useAttributeSetsStore();
 
   const {
     register,
@@ -19,18 +21,23 @@ const { createAttributesSets } = useAttibutesSetsStore();
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("Form submitted with name:", data);
-    // Handle form submission logic here
-    const result = createAttributesSets(data);
-    if (result) {
-      // Clear the form on successful submission
-      toast.success("Attribute set created successfully!");
-      reset();
+  const onSubmit = async (data) => {
+    const payload = {
+      name: data.name,
+      slug: slugify(data.name),
+      translation: {
+        bn: {
+          name: data.nameTranslation,
+        },
+      },
+    };
+    if (payload) {
+      const result = await createAttributeSets(payload);
+      console.log(result);
+      if (result) toast.success(result.message);
     } else {
-      toast.error("Failed to create attribute set. Please try again.");
+      toast.error("No Tags are given !");
     }
-    // Optionally reset the form after successful submission
   };
 
   return (
@@ -42,36 +49,61 @@ const { createAttributesSets } = useAttibutesSetsStore();
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="p-6">
-          {/* Name Field */}
+          {/* Name & Translation Field */}
           <div className="flex flex-col md:flex-row md:items-start mb-6">
             <label className="md:w-[200px] text-gray-700 text-sm font-normal mb-2 md:mb-0 pt-1">
               Campaign Name <span className="text-red-500">*</span>
             </label>
-            <div className="flex-1">
-              <input
-                type="text"
-                {...register("name", { required: "Campaign name is required" })}
-                className={`w-full border rounded-[4px] px-3 py-2.5 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white transition-all shadow-inner ${
-                  errors.name ? "border-red-500" : "border-[#CED4DA]"
-                }`}
-                placeholder="Enter name"
-                aria-invalid={errors.name ? "true" : "false"}
-                disabled={isSubmitting}
-              />
-              {errors.name && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.name.message}
-                </p>
-              )}
+
+            {/* Container for the two inputs - responsive row/column */}
+            <div className="flex-1 flex flex-col md:flex-row gap-4">
+              {/* Original Name Input */}
+              <div className="flex-1">
+                <input
+                  type="text"
+                  {...register("name", {
+                    required: "Campaign name is required",
+                  })}
+                  className={`w-full border rounded-[4px] px-3 py-2.5 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white transition-all shadow-inner ${
+                    errors.name ? "border-red-500" : "border-[#CED4DA]"
+                  }`}
+                  placeholder="Enter name"
+                  aria-invalid={errors.name ? "true" : "false"}
+                  disabled={isSubmitting}
+                />
+                {errors.name && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.name.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Translation Input (new) */}
+              <div className="flex-1">
+                <input
+                  type="text"
+                  {...register("nameTranslation")} // optional field
+                  className={`w-full border rounded-[4px] px-3 py-2.5 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white transition-all shadow-inner ${
+                    errors.nameTranslation
+                      ? "border-red-500"
+                      : "border-[#CED4DA]"
+                  }`}
+                  placeholder="Enter translation (optional)"
+                  aria-invalid={errors.nameTranslation ? "true" : "false"}
+                  disabled={isSubmitting}
+                />
+                {errors.nameTranslation && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.nameTranslation.message}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
 
-          {/* Save Button - Expert Alignment */}
+          {/* Save Button - alignment unchanged */}
           <div className="flex flex-col md:flex-row md:items-start">
-            {/* Empty div to match the label width (creates the 2nd row alignment) */}
             <div className="md:w-[200px] hidden md:block"></div>
-
-            {/* Button container aligned with input field */}
             <div className="flex-1">
               <button
                 type="submit"
@@ -90,5 +122,6 @@ const { createAttributesSets } = useAttibutesSetsStore();
     </div>
   );
 };
+
 
 export default AttributeSetsGeneralForm;

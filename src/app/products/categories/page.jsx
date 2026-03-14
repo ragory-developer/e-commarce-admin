@@ -13,6 +13,7 @@ import {
 } from "react-icons/fi";
 
 import { useCategoryStore } from "@/store/useCategoryStore";
+import CategoryForm from "@/Components/Forms/Category/CategoryForm";
 
 // ------------------- Helper: Flatten nested categories -------------------
 const flattenCategories = (categories, level = 0) => {
@@ -44,133 +45,6 @@ const CategoryHeader = () => (
   </div>
 );
 
-// ------------------- Form Component -------------------
-const CategoryForm = ({ flatCategories, fetchCategoriesTree }) => {
-  const { createCategories } = useCategoryStore();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm({
-    defaultValues: { name: "", slug: "", parent: "", description: "" },
-  });
-
-  const onSubmit = async (data) => {
-    const toastId = toast.loading("Creating category...");
-
-    try {
-      await createCategories(data);
-
-      toast.update(toastId, {
-        render: "Category created successfully!",
-        type: "success",
-        isLoading: false,
-        autoClose: 3000,
-      });
-
-      reset();
-      await fetchCategoriesTree();
-    } catch (error) {
-      toast.update(toastId, {
-        render: error?.message || "Failed to create category",
-        type: "error",
-        isLoading: false,
-        autoClose: 3000,
-      });
-    }
-  };
-
-  return (
-    <div className="w-full lg:w-1/3 bg-white rounded-2xl shadow-sm border border-gray-100 p-8 h-fit">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        {/* Name */}
-        <div>
-          <label className="label font-semibold text-slate-600 pb-1">
-            Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            placeholder="e.g. Electronics"
-            className={`input input-bordered w-full bg-slate-50 focus:bg-white ${errors.name ? "border-red-500" : ""
-              }`}
-            {...register("name", { required: "Name is required" })}
-          />
-          {errors.name && (
-            <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
-          )}
-        </div>
-
-        {/* Slug */}
-        <div>
-          <label className="label font-semibold text-slate-600 pb-1">
-            Slug <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            placeholder="e.g. electronics"
-            className={`input input-bordered w-full bg-slate-50 focus:bg-white ${errors.slug ? "border-red-500" : ""
-              }`}
-            {...register("slug", { required: "Slug is required" })}
-          />
-          {errors.slug && (
-            <p className="text-red-500 text-xs mt-1">{errors.slug.message}</p>
-          )}
-        </div>
-
-        {/* Parent */}
-        <div>
-          <label className="label font-semibold text-slate-600 pb-1">
-            Parent <span className="text-red-500">*</span>
-          </label>
-          <select
-            className={`select select-bordered w-full bg-slate-50 font-normal ${errors.parent ? "border-red-500" : ""
-              }`}
-            {...register("parent", { required: "Parent is required" })}>
-            <option value="">Select a parent</option>
-            {flatCategories.map((cat) => (
-              <option key={cat.id} value={cat.id}>
-                {"— ".repeat(cat.level)}
-                {cat.name}
-              </option>
-            ))}
-          </select>
-          {errors.parent && (
-            <p className="text-red-500 text-xs mt-1">{errors.parent.message}</p>
-          )}
-        </div>
-
-        {/* Description */}
-        <div>
-          <label className="label font-semibold text-slate-600 pb-1">
-            Description <span className="text-red-500">*</span>
-          </label>
-          <textarea
-            className={`textarea textarea-bordered h-32 bg-slate-50 w-full focus:bg-white ${errors.description ? "border-red-500" : ""
-              }`}
-            placeholder="Type here"
-            {...register("description", {
-              required: "Description is required",
-            })}
-          />
-          {errors.description && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.description.message}
-            </p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="btn bg-[#007b70] hover:bg-[#005f56] text-white border-none w-full mt-4 normal-case text-lg shadow-md disabled:opacity-50">
-          {isSubmitting ? "Creating..." : "Create category"}
-        </button>
-      </form>
-    </div>
-  );
-};
 
 // ------------------- Table Row Actions Dropdown -------------------
 const CategoryActionsDropdown = () => (
@@ -299,10 +173,7 @@ const CategoriesPage = () => {
     <div className="min-h-screen bg-slate-50 p-4 md:p-10 font-sans text-slate-700">
       <CategoryHeader />
       <div className="flex flex-col lg:flex-row gap-8">
-        <CategoryForm
-          flatCategories={flatCategories}
-          fetchCategoriesTree={fetchCategoriesTree}
-        />
+        <CategoryForm />
         <CategoryTable categories={categories} />
       </div>
     </div>

@@ -18,27 +18,22 @@ const TagsGeneralForm = () => {
   });
 
   const onSubmit = async (data) => {
-
-
     const payload = {
       name: data.name,
       slug: slugify(data.name),
       translation: {
-        bn: data.nameTrans || "no translation added",
+        bn: data.nameTranslation
+          ? data.nameTranslation
+          : "no translation added",
       },
     };
-
-    const result = await createProductTags(payload);
-    console.log(result.statusCode)
-    if (result.statusCode === 201) {
-      toast.success(result.message)
+    if (payload) {
+      const result = await createProductTags(payload);
+      toast.error(result);
     } else {
-      toast.error(result.message)
+      toast.error("No Tags are given !");
     }
-
-    // If the result indicates success (adjust based on your actual API response)
-
-
+    reset();
   };
 
   return (
@@ -60,14 +55,17 @@ const TagsGeneralForm = () => {
               <input
                 type="text"
                 {...register("name", { required: "Name is required" })}
-                className={`w-full border rounded-sm px-3 py-2.5 focus:outline-none focus:border-[#088178] focus:ring-1 focus:ring-[#088178] bg-white transition-all shadow-inner ${errors.name ? "border-red-500" : "border-gray-300"
-                  }`}
+                className={`w-full border rounded-sm px-3 py-2.5 focus:outline-none focus:border-[#088178] focus:ring-1 focus:ring-[#088178] bg-white transition-all shadow-inner ${
+                  errors.name ? "border-red-500" : "border-gray-300"
+                }`}
                 placeholder="Enter name"
                 aria-invalid={errors.name ? "true" : "false"}
                 disabled={isSubmitting}
               />
               {errors.name && (
-                <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.name.message}
+                </p>
               )}
               <p className="text-gray-500 text-xs">Enter tags for this item</p>
             </div>
@@ -79,7 +77,7 @@ const TagsGeneralForm = () => {
               </label>
               <input
                 type="text"
-                {...register("nameTrans")}
+                {...register("nameTranslation")}
                 className="w-full border border-gray-300 rounded-sm px-3 py-2.5 focus:outline-none focus:border-[#088178] focus:ring-1 focus:ring-[#088178] bg-white transition-all shadow-inner"
                 placeholder="Enter translation"
                 disabled={isSubmitting}
@@ -93,11 +91,11 @@ const TagsGeneralForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`px-6 py-2.5 rounded-lg text-sm font-semibold shadow-sm transition-all duration-200 ${isSubmitting
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-[#088178] hover:bg-[#066a62] text-white hover:shadow-md"
-                }`}
-            >
+              className={`px-6 py-2.5 rounded-lg text-sm font-semibold shadow-sm transition-all duration-200 ${
+                isSubmitting
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-[#088178] hover:bg-[#066a62] text-white hover:shadow-md"
+              }`}>
               {isSubmitting ? "Saving..." : "Save"}
             </button>
           </div>

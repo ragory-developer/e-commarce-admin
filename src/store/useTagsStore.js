@@ -21,8 +21,8 @@ export const useTagsStore = create((set, get) => ({
       set({ isLoadingTags: true, error: null });
       const data = await getProductTagsRequest();
       set({ tags: data.data, isLoadingTags: false });
- return 
-     
+
+      return true;
     } catch (err) {
       set({
         error: err?.message || "Failed to fetch tags",
@@ -36,23 +36,25 @@ export const useTagsStore = create((set, get) => ({
   /*         Create Product Tags Data              */
   /*---------------------------------------------- */
   // --- State ---
- 
+
   isCreateTag: false,
   // --- Actions --- //
 
-  createProductTags: async (data) => {
+  createProductTags: async (payload) => {
     try {
       set({ isCreateTag: true, error: null });
-      const response = await createProductTagsRequest({ postBody: data });
-      if(response.success){
-        set({ tags: response.data, isCreateTag: false });
-      }else{
-        toast.error(response)
+      const data = await createProductTagsRequest(payload);
+      console.log(data, payload);
+      if (data.success && data.statusCode === 201) {
+        toast.success(data.message);
+        return data.massage;
+      } else {
+        toast.error(data.message);
+        return data.massage;
       }
-     
-      return response
+      return response;
     } catch (err) {
-     return err.message
+      return err.message;
     }
   },
 }));

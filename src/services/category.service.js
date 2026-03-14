@@ -1,63 +1,27 @@
-import axios from "axios";
-import { toast } from "react-toastify";
+import { api, handleApiError } from "./axios.helper.service";
 
-import {TOKEN} from "./bearer.token"
-import { BASE_URL } from "./bearer.token";
 /*--------------------------------------------------- */
-/*              Get Category API                      */
+/*              Get Category Tree API                 */
 /*--------------------------------------------------- */
 export const categoryTreeAPI = async () => {
   try {
-    const headers = {
-      Accept: "application/json",
-      Authorization: `Bearer ${TOKEN}`,
-    };
-
-    const params = {
-      level: 0,
-      isActive: true,
-      includeDeleted: false,
-      search: "electronics",
-      page: 1,
-      limit: 20,
-    };
-
-    const response = await axios.get(`${BASE_URL}/api/v1/categories`, {
-      headers,
-      params,
-    });
+    const response = await api.get("/api/v1/categories");
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching categories:", error.response?.data);
-    throw error.response?.data || error;
+    handleApiError(error);
   }
 };
 
 /*--------------------------------------------------- */
-/*              Get Category API                      */
+/*              Create Category API                   */
 /*--------------------------------------------------- */
-export const createCategoryTreeAPI = async ({ postBody }) => {
+export const createCategoryTreeAPI = async (postBody) => {
   try {
-    const headers = {
-      Accept: "application/json",
-      Authorization: `Bearer ${TOKEN}`,
-    };
+    const response = await api.post("/api/v1/categories", postBody);
 
-    const response = await axios.post(
-      `${BASE_URL}/api/v1/categories`,
-      postBody,
-      {
-        headers,
-      },
-    );
-    if (!response.data.success) {
-      toast.error(response.data.message || "Failed to create category");
-    } else {
-      return response.data.success;
-    }
+    return response.data;
   } catch (error) {
-    console.error("Error creating category:", error.response?.data);
-    throw error.response?.data || error;
+    handleApiError(error);
   }
 };

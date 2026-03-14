@@ -3,16 +3,18 @@
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { FormProvider } from "@/Components/Context/FormContext";
-import { useAttibutesSetsStore } from "@/store/useAttributesSetsStore";
+import { useAttributesSetsStore } from "@/store/useAttributeSetsStore";
 
 const AttributesSetPage = () => {
-  const { attributesSets, fetchAttributesSets } = useAttibutesSetsStore();
+  const { attributesSets, fetchAttributesSets } = useAttributesSetsStore();
   const tableRef = useRef(null);
   const tableInstance = useRef(null); // store DataTable instance
 
   // Fetch attribute sets on mount
   useEffect(() => {
-    fetchAttributesSets();
+    (async () => {
+      await fetchAttributesSets();
+    })();
   }, [fetchAttributesSets]);
 
   // Initialize DataTable once
