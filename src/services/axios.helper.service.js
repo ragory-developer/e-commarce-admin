@@ -4,11 +4,14 @@ import axios from "axios";
 /*                    Base Config                     */
 /*--------------------------------------------------- */
 
-export const BASE_URL = "https://website-api.ragory.tech/";
+export const BASE_URL = "https://website-api.ragory.tech/api/v1";
 
-export const TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW1sbzlnejcwMDA3cXgyYXJhY3hrendvIiwidHlwZSI6IkFETUlOIiwiZGV2aWNlSWQiOiJjbW1uOGN6enYwMDAxbnoyYTVsYWxnZWF3Iiwicm9sZSI6IlNVUEVSQURNSU4iLCJwZXJtaXNzaW9ucyI6W10sImlhdCI6MTc3MzMwNTU4NywiZXhwIjoxNzc0MjA1NTg3fQ.WQeC9DMlGl4PgiNFmQCoCqQOJ0USuMQ32sSwldbomCg";
+ const TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbW1pMGlsb3cwMDAwb2R4OHJwOGNrZjF2IiwidHlwZSI6IkFETUlOIiwiZGV2aWNlSWQiOiJjbW1pMGptNTEwMDAxczcycG85Y2w0Y3M5Iiwicm9sZSI6IlNVUEVSQURNSU4iLCJwZXJtaXNzaW9ucyI6W10sImlhdCI6MTc3MzQ2MDE4OSwiZXhwIjoxNzc0MzYwMTg5fQ.3-6cau2lXbzaQ9ejKIMdowhxhHFnXOFdQRwgcuwoJ1E";
 
+if (typeof window !== "undefined") {
+  localStorage.setItem("token", TOKEN);
+}
 /*--------------------------------------------------- */
 /*                Axios Instance                      */
 /*--------------------------------------------------- */
@@ -24,16 +27,16 @@ export const api = axios.create({
 /*            Add Token Automatically                 */
 /*--------------------------------------------------- */
 
-api.interceptors.request.use(
-  (config) => {
-    if (TOKEN) {
-      config.headers.Authorization = `Bearer ${TOKEN}`;
-    }
+// api.interceptors.request.use(
+//   (config) => {
+//     if (TOKEN) {
+//       config.headers.Authorization = `Bearer ${TOKEN}`;
+//     }
 
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
+//     return config;
+//   },
+//   (error) => Promise.reject(error),
+// );
 
 /*--------------------------------------------------- */
 /*                Error Handler                       */
@@ -74,15 +77,15 @@ export const handleApiError = (error) => {
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("TOKEN");
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
 
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  },
+  (error) => Promise.reject(error)
 );

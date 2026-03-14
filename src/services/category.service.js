@@ -5,7 +5,7 @@ import { api, handleApiError } from "./axios.helper.service";
 /*--------------------------------------------------- */
 export const categoryTreeAPI = async () => {
   try {
-    const response = await api.get("/api/v1/categories");
+    const response = await api.get("/categories");
 
     return response.data;
   } catch (error) {
@@ -18,7 +18,7 @@ export const categoryTreeAPI = async () => {
 /*--------------------------------------------------- */
 export const createCategoryTreeAPI = async (postBody) => {
   try {
-    const response = await api.post("/api/v1/categories", postBody);
+    const response = await api.post("/categories", postBody);
 
     return response.data;
   } catch (error) {

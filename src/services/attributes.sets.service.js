@@ -22,7 +22,7 @@ export const getProductAttributeSetsRequest = async (skip = 0, take = 20) => {
 
 export const createProductAttributeSetRequest = async (postBody) => {
   try {
-    const response = await api.post("/api/v1/attribute-sets", postBody);
+    const response = await api.post("/attribute-sets", postBody);
 
     return response.data;
   } catch (error) {

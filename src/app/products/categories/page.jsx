@@ -14,6 +14,7 @@ import {
 
 import { useCategoryStore } from "@/store/useCategoryStore";
 import CategoryForm from "@/Components/Forms/Category/CategoryForm";
+import { useMediaStore } from "@/store/useMediaStore";
 
 // ------------------- Helper: Flatten nested categories -------------------
 const flattenCategories = (categories, level = 0) => {
@@ -27,6 +28,7 @@ const flattenCategories = (categories, level = 0) => {
     return acc;
   }, []);
 };
+
 
 // ------------------- Header Component -------------------
 const CategoryHeader = () => (
@@ -159,6 +161,7 @@ const CategoryTable = ({ categories }) => {
 // ------------------- Main Page -------------------
 const CategoriesPage = () => {
   const { categories, fetchCategoriesTree } = useCategoryStore();
+  const { fetchAllMediaFiles } = useMediaStore()
 
   useEffect(() => {
     fetchCategoriesTree();
@@ -168,6 +171,13 @@ const CategoriesPage = () => {
     if (!categories) return [];
     return flattenCategories(categories);
   }, [categories]);
+
+  useEffect(() => {
+    (async () => {
+
+      await fetchAllMediaFiles();
+    })
+  }, [fetchAllMediaFiles]);
 
   return (
     <div className="min-h-screen bg-slate-50 p-4 md:p-10 font-sans text-slate-700">

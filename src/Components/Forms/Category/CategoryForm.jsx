@@ -9,7 +9,7 @@ const mockCategoriesTree = [
     id: "cat_1",
     name: "Electronics",
     children: [
-      { id: "cat_2", name: "Laptops", children: [] },
+      { id: "cat_2", name: "Laptops", children: [{ id: "cat_2.5", name: "Laptops" }, { id: "cat_2.6", name: "Laptops" }] },
       { id: "cat_3", name: "Phones", children: [] },
     ],
   },

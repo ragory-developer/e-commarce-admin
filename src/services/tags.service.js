@@ -5,7 +5,7 @@ import { api, handleApiError } from "./axios.helper.service";
 /*--------------------------------------------------- */
 export const getProductTagsRequest = async () => {
   try {
-    const response = await api.get("/api/v1/tags");
+    const response = await api.get("/tags");
 
     return response.data;
   } catch (error) {
@@ -18,8 +18,8 @@ export const getProductTagsRequest = async () => {
 /*--------------------------------------------------- */
 export const createProductTagsRequest = async (postBody) => {
   try {
-    const response = await api.post("/api/v1/tags", postBody);
-    return;
+    const response = await api.post("/tags", postBody);
+    return response;
   } catch (error) {
     handleApiError(error);
   }
