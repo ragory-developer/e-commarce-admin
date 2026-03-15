@@ -29,28 +29,4 @@ export const useCategoryStore = create((set, get) => ({
       return false;
     }
   },
-
-  /*---------------------------------------------- */
-  /*         Create Categories Tree Data           */
-  /*---------------------------------------------- */
-  // --- State ---
-  error: null,
-  isCreateCategory: false,
-  // --- Actions --- //
-
-  createCategories: async (data) => {
-    try {
-      set({ isCreateCategory: true, error: null });
-      const response = await createCategoryTreeAPI({ postBody: data });
-      console.log(response);
-      set({ categories: response.data, isCreateCategory: false });
-      return true;
-    } catch (err) {
-      set({
-        error: err?.message || "Failed to create categories",
-        isCreateCategory: false,
-      });
-      return false;
-    }
-  },
 }));

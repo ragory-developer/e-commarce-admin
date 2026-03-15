@@ -3,7 +3,8 @@ import { useTagsStore } from "@/store/useTagsStore";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { slugify } from "@/app/lib/helper/helper";
+import { slugify } from "@/lib/helper/helper";
+
 const TagsGeneralForm = () => {
   const { createProductTags } = useTagsStore();
   const {

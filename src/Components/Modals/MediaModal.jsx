@@ -13,7 +13,7 @@ const MediaModal = ({ isOpen, onClose, onInsert }) => {
     fetchAllMediaFiles();
   }, [isOpen, fetchAllMediaFiles]);
 
-  console.log(allMediaFiles)
+
   useEffect(() => {
     if (!isOpen || !allMediaFiles) return;
 

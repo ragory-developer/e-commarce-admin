@@ -3,8 +3,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { slugify } from "@/app/lib/helper/helper";
+import { slugify } from "@/lib/helper/helper";
 import { useAttributeSetsStore } from "@/store/useAttributeSetsStore";
+
 
 
 const AttributeSetsGeneralForm = () => {

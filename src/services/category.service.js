@@ -16,12 +16,12 @@ export const categoryTreeAPI = async () => {
 /*--------------------------------------------------- */
 /*              Create Category API                   */
 /*--------------------------------------------------- */
-export const createCategoryTreeAPI = async (postBody) => {
+export const createCategoryRequest = async (postBody) => {
   try {
     const response = await api.post("/categories", postBody);
-
-    return response.data;
+    return response;
   } catch (error) {
     handleApiError(error);
   }
 };
+
