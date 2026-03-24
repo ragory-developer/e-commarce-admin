@@ -52,7 +52,10 @@ const TagsPage = () => {
             render: () =>
               `<input type="checkbox" class="checkbox checkbox-sm row-checkbox" />`,
           },
-          { data: "id", title: "ID" },
+          {
+            data: "id", title: "ID",
+            render: (data) => `<div class="name-cell uppercase flex items-center gap-3">${data}</div>`
+          },
           {
             data: "name",
             title: "Name",

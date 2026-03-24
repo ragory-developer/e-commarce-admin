@@ -1,18 +1,21 @@
 "use client";
-
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { FormProvider } from "@/Components/Context/FormContext";
-import { useAttibutesSetsStore } from "@/store/useAttributesSetsStore";
+import { useAttributeSetsStore } from "@/store/useAttributeSetsStore";
+
+
 
 const AttributesSetPage = () => {
-  const { attributesSets, fetchAttributesSets } = useAttibutesSetsStore();
+  const { attributesSets, fetchAttributesSets } = useAttributeSetsStore();
   const tableRef = useRef(null);
   const tableInstance = useRef(null); // store DataTable instance
 
   // Fetch attribute sets on mount
   useEffect(() => {
-    fetchAttributesSets();
+    (async () => {
+      await fetchAttributesSets();
+    })();
   }, [fetchAttributesSets]);
 
   // Initialize DataTable once
@@ -23,6 +26,7 @@ const AttributesSetPage = () => {
     const initTable = async () => {
       $ = (await import("jquery")).default;
       DataTable = (await import("datatables.net-dt")).default;
+
 
       if (!$.fn.DataTable) {
         DataTable(window, $);
@@ -151,6 +155,7 @@ const AttributesSetPage = () => {
           </table>
         </div>
       </div>
+
     </FormProvider>
   );
 };

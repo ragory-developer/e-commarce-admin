@@ -1,12 +1,21 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import mediaData from "@/Data/media.json";
+import { createRoot } from "react-dom/client";
+import { Trash2 } from "lucide-react";
+import { useMediaStore } from "@/store/useMediaStore";
 
 const MediaModal = ({ isOpen, onClose, onInsert }) => {
+  const { allMediaFiles, fetchAllMediaFiles } = useMediaStore();
   const tableRef = useRef(null);
 
   useEffect(() => {
     if (!isOpen) return;
+    fetchAllMediaFiles();
+  }, [isOpen, fetchAllMediaFiles]);
+
+
+  useEffect(() => {
+    if (!isOpen || !allMediaFiles) return;
 
     let table;
     let $;
@@ -18,7 +27,7 @@ const MediaModal = ({ isOpen, onClose, onInsert }) => {
       if (!$.fn.DataTable) DataTable(window, $);
 
       table = $(tableRef.current).DataTable({
-        data: mediaData,
+        data: allMediaFiles,
         pageLength: 20,
         pagingType: "numbers",
         lengthChange: true,
@@ -27,7 +36,7 @@ const MediaModal = ({ isOpen, onClose, onInsert }) => {
         info: true,
         destroy: true,
         dom:
-          "<'dt-top flex justify-between items-center p-4 text-sm text-gray-600'<'dt-left flex items-center'l<'ml-4 delete-btn'>>f>" +
+          "<'dt-top flex justify-between items-center p-4 text-sm text-gray-600'<'dt-left flex items-center'l>f>" +
           "t" +
           "<'dt-bottom flex justify-between items-center p-4 text-sm text-gray-500'i p>",
         columns: [
@@ -40,23 +49,40 @@ const MediaModal = ({ isOpen, onClose, onInsert }) => {
           },
           { data: "id", className: "text-gray-500" },
           {
-            data: "thumbnail",
+            data: null,
             orderable: false,
-            render: (data) =>
-              `<div class="avatar">
-                <div class="w-10 h-10 rounded border">
-                  <img src="${data || "/placeholder.png"}" alt="Thumb" />
-                </div>
-              </div>`,
+            render: (data) => {
+              const thumbUrl =
+                data.variants?.thumb?.url || data.storageUrl || "/placeholder.png";
+              return `<div class="avatar">
+                        <div class="w-10 h-10 rounded border">
+                          <img src="${thumbUrl}" alt="Thumb" />
+                        </div>
+                      </div>`;
+            },
           },
-          { data: "filename", className: "font-medium text-gray-700" },
-          { data: "created", className: "text-left text-gray-500" },
+          {
+            data: "originalName",
+            className: "font-medium text-gray-700",
+            render: (data) => data
+          },
+          {
+            data: "createdAt",
+            className: "text-left text-gray-500",
+            render: (data) => {
+              if (!data.createdAt) return "";
+              const date = new Date(data.createdAt);
+              return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+            },
+          },
           {
             data: null,
             orderable: false,
             className: "text-right",
             render: (data) =>
-              `<button class="btn btn-ghost btn-xs bg-gray-100 hover:bg-gray-200 insert-row-btn normal-case px-3" data-img='${JSON.stringify(data)}'>Insert</button>`,
+              `<button class="btn btn-ghost btn-xs bg-gray-100 hover:bg-gray-200 insert-row-btn normal-case px-3" data-img='${JSON.stringify(
+                data
+              )}'>Insert</button>`,
           },
         ],
         language: {
@@ -64,17 +90,32 @@ const MediaModal = ({ isOpen, onClose, onInsert }) => {
           searchPlaceholder: "Search here...",
           lengthMenu: "Show _MENU_ entries",
         },
-      });
+        initComplete: function () {
+          const dtLeft = document.querySelector(".dt-left");
+          if (dtLeft) {
+            let btnContainer = document.querySelector(".delete-btn");
+            if (!btnContainer) {
+              btnContainer = document.createElement("div");
+              btnContainer.className = "delete-btn ml-4";
+              dtLeft.appendChild(btnContainer);
+            }
 
-      // Inject Delete button
-      $(".delete-btn").html(`
-        <button class="btn btn-outline btn-sm normal-case flex items-center gap-2 text-gray-600">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-          </svg>
-          Delete
-        </button>
-      `);
+            const root = createRoot(btnContainer);
+            root.render(
+              <button
+                className="btn btn-outline btn-sm normal-case flex items-center gap-2 text-gray-600"
+                onClick={() => {
+                  console.log("Delete clicked");
+                  // Add your delete logic here
+                }}
+              >
+                <Trash2 size={16} />
+                Delete
+              </button>
+            );
+          }
+        },
+      });
 
       $(tableRef.current).on("click", ".insert-row-btn", function () {
         const data = $(this).data("img");
@@ -84,25 +125,36 @@ const MediaModal = ({ isOpen, onClose, onInsert }) => {
     };
 
     initTable();
+
     return () => {
       if (table) table.destroy();
       if ($) $(tableRef.current).off();
+      const btnContainer = document.querySelector(".delete-btn");
+      if (btnContainer) {
+        const root = createRoot(btnContainer);
+        root.unmount();
+      }
     };
-  }, [isOpen]);
+  }, [isOpen, allMediaFiles, onInsert, onClose]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        // Create a mock media object
+        // Create a simple object that mimics the media structure
         const newMedia = {
-          id: Date.now(),
+          id: Date.now().toString(),
           filename: file.name,
+          originalName: file.name,
           thumbnail: reader.result,
-          preview: reader.result,
+          variants: {
+            thumb: { url: reader.result },
+          },
+          createdAt: new Date().toISOString(),
         };
         onInsert(newMedia);
+        onClose();
       };
       reader.readAsDataURL(file);
     }
@@ -137,6 +189,7 @@ const MediaModal = ({ isOpen, onClose, onInsert }) => {
               Drop files here or click to upload
             </label>
           </div>
+
           {/* Table Container */}
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-4">
             <div className="datatable-container">
@@ -157,7 +210,7 @@ const MediaModal = ({ isOpen, onClose, onInsert }) => {
         </div>
       </div>
 
-      {/* Click outside to close (optional background overlay) */}
+      {/* Click outside to close */}
       <form
         method="dialog"
         className="modal-backdrop bg-black/50"

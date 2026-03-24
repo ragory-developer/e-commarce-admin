@@ -1,34 +1,27 @@
-import {
-  createProductTagsRequest,
-  getProductTagsRequest,
-} from "@/services/tags.service";
+import { getAllMediaRequest } from "@/services/media.picker.service";
 import { toast } from "react-toastify";
 import { create } from "zustand";
 
-export const useTagsStore = create((set, get) => ({
+export const useMediaStore = create((set, get) => ({
   /*---------------------------------------------- */
-  /*          Get Product Tags Data                */
+  /*          Get All Media Files                 */
   /*---------------------------------------------- */
 
   // --- State ---
-  tags: [],
-  isLoadingTags: false,
-  error: null,
+  isLoadingMedia: null,
+  allMediaFiles: [],
 
   // --- Actions --- //
-  fetchProductTags: async () => {
+  fetchAllMediaFiles: async () => {
     try {
-      set({ isLoadingTags: true, error: null });
-      const data = await getProductTagsRequest();
-      set({ tags: data.data, isLoadingTags: false });
-
-      return true;
+      const data = await getAllMediaRequest();
+      set({ allMediaFiles: data.data });
+      console.log(data);
     } catch (err) {
       set({
-        error: err?.message || "Failed to fetch tags",
+        error: err?.message || "Failed to fetch media",
         isLoadingTags: false,
       });
-      return false;
     }
   },
 
@@ -37,23 +30,21 @@ export const useTagsStore = create((set, get) => ({
   /*---------------------------------------------- */
   // --- State ---
 
-  isCreateTag: false,
   // --- Actions --- //
 
   createProductTags: async (payload) => {
     try {
       set({ isCreateTag: true, error: null });
       const data = await createProductTagsRequest(payload);
-      console.log(data.data.message, payload);
-      if (data.data.success) {
-        toast.success(data.data.message);
-        
+      console.log(data, payload);
+      if (data.success && data.statusCode === 201) {
+        toast.success(data.message);
+        return data.massage;
       } else {
-        toast.error(data.data.message);
+        toast.error(data.message);
         return data.massage;
       }
-     
-      return data;
+      return response;
     } catch (err) {
       return err.message;
     }
