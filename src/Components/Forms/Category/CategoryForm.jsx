@@ -102,8 +102,7 @@ const CategoryForm = ({ category = null, onSuccess, parentId, setParentId }) => 
     try {
       const payload = { ...data };
       const result = await createCategoryRequest(payload);
-      await fetchCategoriesTree()
-      console.log(result);
+      await fetchCategoriesTree();
 
       reset();
       if (onSuccess) onSuccess();
@@ -129,8 +128,9 @@ const CategoryForm = ({ category = null, onSuccess, parentId, setParentId }) => 
             <input
               type="text"
               placeholder="e.g. Electronics"
-              className={`input input-bordered w-full bg-slate-50 focus:bg-white ${errors.name ? "border-red-500" : ""
-                }`}
+              className={`input input-bordered w-full bg-slate-50 focus:bg-white ${
+                errors.name ? "border-red-500" : ""
+              }`}
               {...register("name", { required: "Name is required" })}
             />
             {errors.name && (
@@ -146,8 +146,9 @@ const CategoryForm = ({ category = null, onSuccess, parentId, setParentId }) => 
             <input
               type="text"
               placeholder="e.g. electronics"
-              className={`input input-bordered w-full bg-slate-50 focus:bg-white ${errors.slug ? "border-red-500" : ""
-                }`}
+              className={`input input-bordered w-full bg-slate-50 focus:bg-white ${
+                errors.slug ? "border-red-500" : ""
+              }`}
               {...register("slug", { required: "Slug is required" })}
             />
             {errors.slug && (
@@ -161,10 +162,13 @@ const CategoryForm = ({ category = null, onSuccess, parentId, setParentId }) => 
               Description <span className="text-red-500">*</span>
             </label>
             <textarea
-              className={`textarea textarea-bordered h-32 bg-slate-50 w-full focus:bg-white ${errors.description ? "border-red-500" : ""
-                }`}
+              className={`textarea textarea-bordered h-32 bg-slate-50 w-full focus:bg-white ${
+                errors.description ? "border-red-500" : ""
+              }`}
               placeholder="Describe the category"
-              {...register("description", { required: "Description is required" })}
+              {...register("description", {
+                required: "Description is required",
+              })}
             />
             {errors.description && (
               <p className="text-red-500 text-xs mt-1">
@@ -181,13 +185,15 @@ const CategoryForm = ({ category = null, onSuccess, parentId, setParentId }) => 
               className="checkbox checkbox-primary"
               {...register("isActive")}
             />
-            <label htmlFor="isActive" className="label font-semibold text-slate-600">
+            <label
+              htmlFor="isActive"
+              className="label font-semibold text-slate-600">
               Active
             </label>
           </div>
 
           {/* Parent ID (now synced with tree selection) */}
-          <div>
+          <div className="hidden">
             <label className="label font-semibold text-slate-600 pb-1">
               Parent ID
             </label>
@@ -208,16 +214,22 @@ const CategoryForm = ({ category = null, onSuccess, parentId, setParentId }) => 
 
           {/* Image */}
           <div>
-            <label className="label font-semibold text-slate-600 pb-1">Image</label>
+            <label className="label font-semibold text-slate-600 pb-1">
+              Image
+            </label>
             <div className="flex items-center gap-3">
               {watchImage && (
                 <div className="w-12 h-12 rounded-lg border border-gray-200 overflow-hidden shrink-0">
                   <img
-                    src={getPreviewUrl(watchImage, allMediaFiles) || "https://via.placeholder.com/48?text=Error"}
+                    src={
+                      getPreviewUrl(watchImage, allMediaFiles) ||
+                      "https://via.placeholder.com/48?text=Error"
+                    }
                     alt="preview"
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/48?text=Error";
+                      e.target.src =
+                        "https://via.placeholder.com/48?text=Error";
                     }}
                   />
                 </div>
@@ -232,8 +244,7 @@ const CategoryForm = ({ category = null, onSuccess, parentId, setParentId }) => 
                 <button
                   type="button"
                   onClick={() => openMediaModal("image")}
-                  className="btn btn-outline btn-primary whitespace-nowrap"
-                >
+                  className="btn btn-outline btn-primary whitespace-nowrap">
                   Browse
                 </button>
               </div>
@@ -242,16 +253,22 @@ const CategoryForm = ({ category = null, onSuccess, parentId, setParentId }) => 
 
           {/* Icon */}
           <div>
-            <label className="label font-semibold text-slate-600 pb-1">Icon</label>
+            <label className="label font-semibold text-slate-600 pb-1">
+              Icon
+            </label>
             <div className="flex items-center gap-3">
               {watchIcon && (
                 <div className="w-12 h-12 rounded-lg border border-gray-200 overflow-hidden flex-shrink-0">
                   <img
-                    src={getPreviewUrl(watchIcon, allMediaFiles) || "https://via.placeholder.com/48?text=Error"}
+                    src={
+                      getPreviewUrl(watchIcon, allMediaFiles) ||
+                      "https://via.placeholder.com/48?text=Error"
+                    }
                     alt="preview"
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/48?text=Error";
+                      e.target.src =
+                        "https://via.placeholder.com/48?text=Error";
                     }}
                   />
                 </div>
@@ -266,8 +283,7 @@ const CategoryForm = ({ category = null, onSuccess, parentId, setParentId }) => 
                 <button
                   type="button"
                   onClick={() => openMediaModal("icon")}
-                  className="btn btn-outline btn-primary whitespace-nowrap"
-                >
+                  className="btn btn-outline btn-primary whitespace-nowrap">
                   Browse
                 </button>
               </div>
@@ -282,7 +298,9 @@ const CategoryForm = ({ category = null, onSuccess, parentId, setParentId }) => 
           </h3>
 
           <div>
-            <label className="label font-semibold text-slate-600 pb-1">Meta Title</label>
+            <label className="label font-semibold text-slate-600 pb-1">
+              Meta Title
+            </label>
             <input
               type="text"
               placeholder="Meta title for search engines"
@@ -292,7 +310,9 @@ const CategoryForm = ({ category = null, onSuccess, parentId, setParentId }) => 
           </div>
 
           <div>
-            <label className="label font-semibold text-slate-600 pb-1">Meta Description</label>
+            <label className="label font-semibold text-slate-600 pb-1">
+              Meta Description
+            </label>
             <textarea
               className="textarea textarea-bordered h-20 bg-slate-50 w-full focus:bg-white"
               placeholder="Brief description for search results"
@@ -304,8 +324,7 @@ const CategoryForm = ({ category = null, onSuccess, parentId, setParentId }) => 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="btn bg-[#007b70] hover:bg-[#005f56] text-white border-none w-full mt-6 normal-case text-lg shadow-md disabled:opacity-50"
-        >
+          className="btn bg-[#007b70] hover:bg-[#005f56] text-white border-none w-full mt-6 normal-case text-lg shadow-md disabled:opacity-50">
           {isSubmitting
             ? category
               ? "Updating..."
