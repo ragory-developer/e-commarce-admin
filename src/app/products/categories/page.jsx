@@ -27,8 +27,8 @@ const CategoryHeader = () => (
 );
 
 // ─── Category Table Panel (now hosts the TreeView) ────────────────────────────
-const CategoryTable = ({ parentId, setParentId }) => (
-  <div className="w-full lg:w-2/3 bg-white rounded-2xl shadow-sm border border-gray-100 p-4 md:p-6 flex flex-col">
+const CategoryTree = ({ parentId, setParentId }) => (
+  <div className="w-full lg:w-2/3 h-full bg-white rounded-2xl shadow-sm border border-gray-100 p-4 md:p-6 flex flex-col">
     <div className="flex items-center justify-between mb-4">
       <h2 className="text-base font-semibold text-slate-700">Category Tree</h2>
       <span className="badge badge-ghost text-slate-400 text-xs normal-case border-slate-200">
@@ -38,7 +38,7 @@ const CategoryTable = ({ parentId, setParentId }) => (
 
     <div className="border-t border-slate-100 mb-4" />
 
-    <div className="flex-1 min-h-0" style={{ minHeight: 480 }}>
+    <div className="flex-1 min-h-dvh">
       <TreeView parentId={parentId} setParentId={setParentId} />
     </div>
   </div>
@@ -63,9 +63,9 @@ const CategoriesPage = () => {
     <div className="min-h-screen bg-slate-50 p-4 md:p-10 font-sans text-slate-700">
       <ToastContainer position="top-right" autoClose={3000} />
       <CategoryHeader />
-      <div className="flex flex-col lg:flex-row gap-8 items-start">
+      <div className="flex flex-col lg:flex-row gap-8 items-start h-full">
         <CategoryForm setParentId={setParentId} parentId={parentId} />
-        <CategoryTable setParentId={setParentId} parentId={parentId} />
+        <CategoryTree setParentId={setParentId} parentId={parentId} />
       </div>
     </div>
   );

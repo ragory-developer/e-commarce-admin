@@ -25,3 +25,15 @@ export const createCategoryRequest = async (postBody) => {
   }
 };
 
+/*--------------------------------------------------- */
+/*              Delete Category API                   */
+/*--------------------------------------------------- */
+export const deleteCategoryRequest = async (id) => {
+  try {
+    const response = await api.delete(`/categories/${id}`);
+    return response;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+

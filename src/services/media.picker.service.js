@@ -45,7 +45,7 @@ export const uploadMultipleMediaRequest = async (postBody) => {
   try {
     const response = await api.post("/media/upload-multiple", postBody);
 
-    return response.data;
+    return response;
   } catch (error) {
     handleApiError(error);
   }
